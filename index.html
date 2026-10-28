@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jonne</title>
+<meta name="description" content="De persoonlijke website van Jonne.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== Kleuren (pas hier gerust aan) ===== */
+  :root {
+    --bg: #f6f5f1;
+    --surface: #ffffff;
+    --text: #15171c;
+    --muted: #5b616e;
+    --line: #e3e1da;
+    --accent: #2f5bea;
+    --accent-soft: #e7edfd;
+    --spotify: #168d40;
+    --shadow: 0 1px 2px rgba(20, 24, 33, .04), 0 8px 24px rgba(20, 24, 33, .06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e1014;
+      --surface: #161920;
+      --text: #eceef2;
+      --muted: #9aa1ad;
+      --line: #262a33;
+      --accent: #7c9cff;
+      --accent-soft: #1b2340;
+      --spotify: #1ed760;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.65 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* ===== Navigatie ===== */
+  .nav {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: saturate(160%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav .wrap { display: flex; align-items: center; gap: 28px; height: 68px; }
+  .logo { font-family: Fraunces, Georgia, serif; font-size: 22px; font-weight: 600; text-decoration: none; letter-spacing: -.01em; }
+  .logo span { color: var(--accent); }
+  .links { display: flex; gap: 22px; font-size: 14px; font-weight: 500; color: var(--muted); }
+  .links a { text-decoration: none; transition: color .15s; }
+  .links a:hover { color: var(--text); }
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+
+  /* Verjaardagsteller rechtsboven */
+  .countdown {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 14px 6px 10px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .countdown .cake { font-size: 18px; line-height: 1; }
+  .countdown .label { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); line-height: 1.2; }
+  .countdown .time { font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.3; }
+  .countdown .time small { font-weight: 500; color: var(--muted); margin: 0 4px 0 1px; }
+  .countdown.party { background: var(--accent); color: #fff; border-color: transparent; }
+  .countdown.party .label, .countdown.party small { color: rgba(255, 255, 255, .8); }
+
+  /* ===== Hero ===== */
+  .hero { padding: 96px 0 72px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--accent); background: var(--accent-soft); padding: 5px 12px; border-radius: 999px; }
+  .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  h1 {
+    font-family: Fraunces, Georgia, serif; font-weight: 500;
+    font-size: clamp(44px, 8vw, 84px); line-height: 1.02; letter-spacing: -.025em;
+    margin: 22px 0 20px;
+  }
+  h1 em { font-style: normal; color: var(--accent); }
+  .lead { font-size: clamp(17px, 2.2vw, 20px); color: var(--muted); max-width: 620px; margin: 0; }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 52px; max-width: 760px; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; box-shadow: var(--shadow); }
+  .stat .k { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  .stat .v { font-size: 22px; font-weight: 600; margin-top: 4px; letter-spacing: -.01em; }
+
+  /* ===== Secties ===== */
+  section.block-section { padding: 72px 0; border-top: 1px solid var(--line); }
+  .grid-2 { display: grid; grid-template-columns: 280px 1fr; gap: 48px; }
+  h2 { font-family: Fraunces, Georgia, serif; font-weight: 500; font-size: 34px; letter-spacing: -.015em; line-height: 1.15; margin: 0; }
+  .section-num { display: block; font: 600 12px/1 Inter, sans-serif; letter-spacing: .1em; color: var(--accent); margin-bottom: 12px; }
+  .prose p { margin: 0 0 1em; font-size: 17px; }
+  .prose p:last-child { margin-bottom: 0; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; box-shadow: var(--shadow); }
+  .card .icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); font-size: 20px; margin-bottom: 16px; }
+  .card h3 { margin: 0 0 6px; font-size: 17px; font-weight: 600; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .timeline li { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .timeline li:first-child { padding-top: 0; }
+  .timeline li:last-child { border-bottom: 0; }
+  .timeline .when { font-size: 14px; font-weight: 600; color: var(--accent); }
+  .timeline h3 { margin: 0 0 2px; font-size: 17px; }
+  .timeline p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  .contact-box { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 32px; box-shadow: var(--shadow); }
+  .contact-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px; font-size: 15px; font-weight: 500; }
+
+  footer { padding: 40px 0 120px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+
+  /* ===== Spotify: nu aan het luisteren ===== */
+  .np {
+    display: flex; align-items: center; gap: 16px;
+    margin-top: 16px; max-width: 760px;
+    padding: 14px 20px 14px 14px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+    box-shadow: var(--shadow); text-decoration: none;
+    transition: border-color .15s;
+  }
+  a.np[href]:hover { border-color: var(--muted); }
+  .np.unset { display: none; }
+  .np-art {
+    position: relative; flex: none; width: 64px; height: 64px;
+    border-radius: 10px; overflow: hidden;
+    display: grid; place-items: center; font-size: 26px;
+    background: var(--accent-soft);
+  }
+  .np-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .np-art img:not([src]) { display: none; }
+  .np-info { flex: 1; min-width: 0; }
+  .np-status {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--spotify);
+  }
+  .np.idle .np-status { color: var(--muted); }
+  .np-title, .np-artist { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .np-title { font-size: 17px; font-weight: 600; margin-top: 2px; }
+  .np-artist { font-size: 14px; color: var(--muted); }
+  .np-bar { height: 4px; margin-top: 10px; border-radius: 4px; background: var(--line); overflow: hidden; }
+  .np-bar span { display: block; height: 100%; width: 0; background: var(--spotify); transition: width 1s linear; }
+  .np.idle .np-bar, .np.no-progress .np-bar { display: none; }
+  .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; }
+  .eq i { width: 3px; height: 40%; border-radius: 1px; background: currentColor; animation: eq 1s ease-in-out infinite; }
+  .eq i:nth-child(2) { animation-delay: -.4s; }
+  .eq i:nth-child(3) { animation-delay: -.7s; }
+  .np.idle .eq { display: none; }
+  @keyframes eq { 0%, 100% { height: 30%; } 50% { height: 100%; } }
+  @media (prefers-reduced-motion: reduce) { .eq i { animation: none; height: 70%; } }
+
+  /* ===== Mobiel ===== */
+  @media (max-width: 860px) {
+    .links { display: none; }
+    .grid-2 { grid-template-columns: 1fr; gap: 20px; }
+    .cards { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding: 0 16px; }
+    .nav .wrap { gap: 12px; }
+    .countdown { padding: 5px 10px 5px 8px; }
+    .countdown .label { display: none; }
+    .countdown .sec { display: none; }
+    .hero { padding: 64px 0 52px; }
+    .stats { grid-template-columns: 1fr; }
+    .timeline li { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     TIP: Alle teksten hieronder kun je hier direct aanpassen.
+     ============================================================ -->
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#top" class="logo">Jonne<span>.</span></a>
+    <nav class="links">
+      <a href="#over">Over mij</a>
+      <a href="#interesses">Interesses</a>
+      <a href="#doelen">Doelen</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <div class="countdown" id="countdown" title="Tot mijn verjaardag op 29 december">
+        <span class="cake">🎂</span>
+        <span>
+          <span class="label">Tot mijn verjaardag</span>
+          <span class="time" id="cd-time">…</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Welkom op mijn website</span>
+      <h1>Hoi, ik ben <em>Jonne</em>.</h1>
+      <p class="lead">Ik ben <span class="age">15</span> jaar oud en hou van nieuwe dingen leren, maken en ontdekken. Op deze site vertel ik wie ik ben, waar ik mee bezig ben en wat ik nog wil bereiken.</p>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="k">Leeftijd</div>
+          <div class="v"><span class="age">15</span> jaar</div>
+        </div>
+        <div class="stat">
+          <div class="k">Jarig op</div>
+          <div class="v">29 december</div>
+        </div>
+        <div class="stat">
+          <div class="k">Woonplaats</div>
+          <div class="v">Nederland</div>
+        </div>
+      </div>
+
+      <!-- Spotify: wat ik nu luister (instellen: zie "Spotify" onderaan in het script) -->
+      <a class="np unset idle" id="np" target="_blank" rel="noopener">
+        <div class="np-art">🎵<img id="np-img" alt=""></div>
+        <div class="np-info">
+          <div class="np-status"><span class="eq"><i></i><i></i><i></i></span><span id="np-label">Spotify</span></div>
+          <div class="np-title" id="np-title"></div>
+          <div class="np-artist" id="np-artist"></div>
+          <div class="np-bar"><span id="np-progress"></span></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Over mij -->
+  <section class="block-section" id="over">
+    <div class="wrap grid-2">
+      <div>
+        <span class="section-num">01</span>
+        <h2>Over mij</h2>
+      </div>
+      <div class="prose">
+        <p>Schrijf hier iets over jezelf. Bijvoorbeeld op welke school je zit, wat je graag doet in je vrije tijd en wat je uniek maakt.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interesses -->
+  <section class="block-section" id="interesses">
+    <div class="wrap">
+      <div style="margin-bottom: 32px;">
+        <span class="section-num">02</span>
+        <h2>Interesses</h2>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="icon">💻</div>
+          <h3>Technologie</h3>
+          <p>Websites, computers, AI en alles wat met techniek te maken heeft.</p>
+        </div>
+        <div class="card">
+          <div class="icon">⚽</div>
+          <h3>Sport</h3>
+          <p>Vervang dit door een sport of hobby die jij leuk vindt.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🎧</div>
+          <h3>Muziek</h3>
+          <p>Welke muziek luister je graag? Of speel je zelf een instrument?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Doelen -->
+  <section class="block-section" id="doelen">
+    <div class="wrap grid-2">
+      <div>
+        <span class="section-num">03</span>
+        <h2>Doelen &amp; projecten</h2>
+      </div>
+      <ul class="timeline">
+        <li>
+          <div class="when">Nu</div>
+          <div><h3>Mijn eigen website</h3><p>Deze site bouwen en vullen met mijn eigen verhaal.</p></div>
+        </li>
+        <li>
+          <div class="when">Dit jaar</div>
+          <div><h3>Een nieuw doel</h3><p>Wat wil je dit jaar nog leren of bereiken?</p></div>
+        </li>
+        <li>
+          <div class="when">Later</div>
+          <div><h3>Droom voor de toekomst</h3><p>Welke studie, welk beroep of welk avontuur zie je voor je?</p></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="block-section" id="contact">
+    <div class="wrap">
+      <div class="contact-box">
+        <span class="section-num">CONTACT</span>
+        <h2>Zeg gerust hallo</h2>
+        <p style="color: var(--muted); margin: 8px 0 0;">Vragen, ideeën of gewoon even kletsen? Je kunt me hier bereiken.</p>
+        <div class="contact-row">
+          <span class="chip">✉️ <span>jouw@email.nl</span></span>
+          <span class="chip">📷 <span>@jouwnaam</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> Jonne. Gemaakt met zorg.</div>
+</footer>
+
+<script>
+  /* ===== Instellingen ===== */
+  const BIRTH_YEAR = 2010;   // geboortejaar
+  const BIRTH_MONTH = 11;    // 0 = januari, 11 = december
+  const BIRTH_DAY = 29;
+
+  /* ===== Leeftijd & verjaardagsteller ===== */
+  const cd = document.getElementById('countdown');
+  const cdTime = document.getElementById('cd-time');
+  const pad = n => String(n).padStart(2, '0');
+
+  function currentAge(now) {
+    const hadBirthday = now >= new Date(now.getFullYear(), BIRTH_MONTH, BIRTH_DAY);
+    return now.getFullYear() - BIRTH_YEAR - (hadBirthday ? 0 : 1);
+  }
+
+  function tick() {
+    const now = new Date();
+    document.querySelectorAll('.age').forEach(el => el.textContent = currentAge(now));
+
+    if (now.getMonth() === BIRTH_MONTH && now.getDate() === BIRTH_DAY) {
+      cd.classList.add('party');
+      cd.querySelector('.label').textContent = 'Vandaag!';
+      cdTime.textContent = 'Ik ben jarig 🎉';
+      return;
+    }
+    cd.classList.remove('party');
+    cd.querySelector('.label').textContent = 'Tot mijn verjaardag';
+
+    let target = new Date(now.getFullYear(), BIRTH_MONTH, BIRTH_DAY);
+    if (now > target) target = new Date(now.getFullYear() + 1, BIRTH_MONTH, BIRTH_DAY);
+    let s = Math.floor((target - now) / 1000);
+    const d = Math.floor(s / 86400); s %= 86400;
+    const h = Math.floor(s / 3600); s %= 3600;
+    const m = Math.floor(s / 60); s %= 60;
+    cdTime.innerHTML = `${d}<small>d</small>${pad(h)}<small>u</small>${pad(m)}<small>m</small><span class="sec">${pad(s)}<small>s</small></span>`;
+  }
+  tick();
+  setInterval(tick, 1000);
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ===== Spotify: wat ik nu luister =====
+     Kies ÉÉN van de twee manieren en vul die hieronder in.
+
+     A) Via Discord (makkelijkst, geen sleutel nodig)
+        1. Discord → Instellingen → Verbindingen → koppel Spotify en zet "Weergeven op profiel" aan.
+        2. Word lid van de Lanyard Discord-server: https://discord.gg/lanyard
+        3. Discord → Instellingen → Geavanceerd → zet "Ontwikkelaarsmodus" aan.
+        4. Klik met rechts op je eigen naam → "Gebruikers-ID kopiëren" en plak die bij DISCORD_ID.
+
+     B) Via Last.fm (laat ook je laatst geluisterde nummer zien)
+        1. Maak een account op last.fm en koppel Spotify: https://www.last.fm/settings/applications
+        2. Vraag een gratis API-sleutel aan: https://www.last.fm/api/account/create
+        3. Vul je Last.fm-gebruikersnaam en de API-sleutel (API key, níet het shared secret) in.
+  */
+  const SPOTIFY = {
+    DISCORD_ID: '',
+    LASTFM_USER: 'JGB058',
+    LASTFM_KEY: '33155baef38d3b20c978130bc826bde1'
+  };
+
+  const np = document.getElementById('np');
+  const npImg = document.getElementById('np-img');
+  const npProgress = document.getElementById('np-progress');
+  let npTrack = null;
+
+  async function fromLanyard() {
+    const res = await fetch(`https://api.lanyard.rest/v1/users/${encodeURIComponent(SPOTIFY.DISCORD_ID)}`);
+    const { data } = await res.json();
+    if (!data || !data.listening_to_spotify || !data.spotify) return { playing: false };
+    const s = data.spotify;
+    return {
+      playing: true,
+      title: s.song,
+      artist: s.artist.replace(/;/g, ','),
+      art: s.album_art_url,
+      url: `https://open.spotify.com/track/${s.track_id}`,
+      start: s.timestamps && s.timestamps.start,
+      end: s.timestamps && s.timestamps.end
+    };
+  }
+
+  async function fromLastfm() {
+    const q = new URLSearchParams({
+      method: 'user.getrecenttracks', user: SPOTIFY.LASTFM_USER,
+      api_key: SPOTIFY.LASTFM_KEY, format: 'json', limit: 1
+    });
+    const res = await fetch('https://ws.audioscrobbler.com/2.0/?' + q);
+    const json = await res.json();
+    const t = json.recenttracks && json.recenttracks.track && json.recenttracks.track[0];
+    if (!t) return { playing: false };
+    const img = (t.image || []).find(i => i.size === 'extralarge') || (t.image || []).slice(-1)[0];
+    return {
+      playing: !!(t['@attr'] && t['@attr'].nowplaying === 'true'),
+      title: t.name,
+      artist: t.artist && (t.artist['#text'] || t.artist.name),
+      // Last.fm geeft een grijs sterretje als er geen hoes is; dan tonen we 🎵
+      art: img && !img['#text'].includes('2a96cbd8b46e442fc41c2b86b821562f') ? img['#text'] : '',
+      url: t.url
+    };
+  }
+
+  // info: null = niet gekoppeld, { playing, title, artist, art, url, start, end }
+  function renderNowPlaying(info) {
+    const label = document.getElementById('np-label');
+    const title = document.getElementById('np-title');
+    const artist = document.getElementById('np-artist');
+    np.classList.toggle('unset', !info);
+    if (!info) return;
+
+    const hasTrack = !!info.title;
+    np.classList.toggle('idle', !info.playing);
+    np.classList.toggle('no-progress', !(info.start && info.end));
+    label.textContent = info.playing ? 'Nu aan het luisteren' : hasTrack ? 'Laatst geluisterd' : 'Spotify';
+    title.textContent = hasTrack ? info.title : 'Even geen muziek aan';
+    artist.textContent = hasTrack ? (info.artist || '') : 'Kom later terug 🎧';
+    if (hasTrack && info.art) npImg.src = info.art; else npImg.removeAttribute('src');
+    if (hasTrack && info.url) np.href = info.url; else np.removeAttribute('href');
+    np.title = hasTrack ? `${info.title} — ${info.artist || ''}` : '';
+    npTrack = info.playing ? info : null;
+    updateProgress();
+  }
+  npImg.addEventListener('error', () => npImg.removeAttribute('src'));
+
+  function updateProgress() {
+    if (!npTrack || !npTrack.start || !npTrack.end) return;
+    const pct = (Date.now() - npTrack.start) / (npTrack.end - npTrack.start) * 100;
+    npProgress.style.width = Math.max(0, Math.min(100, pct)) + '%';
+  }
+
+  async function refreshNowPlaying() {
+    const source = SPOTIFY.DISCORD_ID ? fromLanyard
+      : (SPOTIFY.LASTFM_USER && SPOTIFY.LASTFM_KEY) ? fromLastfm : null;
+    if (!source) return renderNowPlaying(null);
+    try { renderNowPlaying(await source()); }
+    catch (e) { renderNowPlaying({ playing: false }); }
+  }
+
+  refreshNowPlaying();
+  setInterval(refreshNowPlaying, 15000);
+  setInterval(updateProgress, 1000);
+</script>
+</body>
+</html>
